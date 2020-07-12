@@ -26,6 +26,31 @@ app.get('/users/:id', (req, res)=>{
     }
 });
 
+app.get('/users/lastname/:lastname', (req, res)=>{
+    const lastname = req.params.lastname;   
+    if(lastname !== null){          
+       const user = users.find(u => u.lastname == lastname);
+       res.status(200).send(user);
+    }else{
+        res.sendStatus(400);
+    }
+});
+
+app.get('/users/gender/:gender', (req, res)=>{
+    const gender = req.params.gender;   
+    if(gender !== null){          
+       const user = users.find(u => u.gender == gender);
+       res.status(200).send(user);
+    } else {
+        res.sendStatus(400);
+    }
+});
+
+app.get('/users/user/telephone', (req, res)=>{ 
+    const user = users.find(u => u.telephones.length > 0);
+    res.status(200).send(user);
+});
+
 app.post('/users', (req, res) => {
     const user = {
         identification : req.body.identification,
