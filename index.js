@@ -51,6 +51,36 @@ app.get('/users/user/telephone', (req, res)=>{
     res.status(200).send(user);
 });
 
+app.get('/users/bmi/:id', (req, res)=>{
+    const id = req.params.id;   
+    if(id > 0){          
+       const user = users.find(u => u.identification == id);
+       console.log(user);
+       let weight = user.weight;
+       let height = user.height;       
+       res.status(200).send(new Object(bmi(weight, height)));
+    } else {
+        res.sendStatus(400);
+    }
+});
+
+
+app.get('/users/user/bmi', (req, res)=>{
+        let result = [];
+        users.forEach( u => {
+           if (u.weight != undefined && u.height != undefined) {
+                let weight = u.weight;
+                let height = u.height;  
+                userResult = {
+                    identification: u.identification,
+                    bmi: bmi(weight, height)
+                }
+                result.push(userResult)
+           }
+        });    
+       res.status(200).send(result);
+});
+
 app.post('/users', (req, res) => {
     const user = {
         identification : req.body.identification,
@@ -100,4 +130,4 @@ app.delete("/users/:id", (req, res) => {
 
 app.listen(3000, () => {
     console.log("Servidor iniciado");
-   });
+});
