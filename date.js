@@ -1,4 +1,4 @@
 const date = () => {
-    return new Date()
+    return new Date().toISOString().split("T")[0];
 };
 module.exports = date;
