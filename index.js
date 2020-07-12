@@ -3,7 +3,11 @@ const express = require('express');
 //instanciar express en el objeto app
 const app = express();
 
+const useragent = require('express-useragent');
+
 app.use(express.json());
+
+app.use(useragent.express());
 
 //importar módulo personalizado
 const bmi = require('./bmi');
@@ -11,6 +15,15 @@ const date = require('./date');
 
 //Models
 const users = [];
+
+//Middleware
+const logger = (req, res, next) => {
+    const parameters = JSON.stringify(req.params);
+    const ua = JSON.stringify(req.useragent);
+    console.log(`${date()} : ${req.method} : ${req.path} : ${parameters} : ${ua}`);
+	next();
+}
+app.use(logger);
 
 app.get('/users', (req, res)=>{
     res.status(200).send(users);
@@ -55,7 +68,6 @@ app.get('/users/bmi/:id', (req, res)=>{
     const id = req.params.id;   
     if(id > 0){          
        const user = users.find(u => u.identification == id);
-       console.log(user);
        let weight = user.weight;
        let height = user.height;       
        res.status(200).send(new Object(bmi(weight, height)));
