@@ -6,6 +6,6 @@ const tweets = require('./routers/tweets')
 
 router.use(logger);
 router.use('/users', users);
-//router.use('/tweets', tweets);
+router.use('/tweets', tweets);
 
 module.exports = router;

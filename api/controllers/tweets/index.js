@@ -1,11 +1,87 @@
-const Tweet = require('./../../models/tweets')
+const Tweet = require('./../../models/tweets');
+const { response } = require('express');
 
-const deteleTweet = (req, res) => {
-    res.send("Borrar Tweet");
+const getTweets = (req, res) => {
+    Tweet
+    .find({})
+    .populate('user', 'username')
+    .populate('comments.user', 'username')
+    .then((response)=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
+}
+
+const getTweet = (req, res) => {
+    const id = req.params.id;
+    Tweet
+    .find({_id : id})
+    .populate('user', 'username')
+    .then((response)=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
+};
+
+const newTweet = (req, res) => {
+    const tweet = {
+        content: req.body.content,
+        user: req.body.user
+    };
+    if(tweet.content && tweet.user){
+        const object = new Tweet(tweet);
+        object.save()
+        .then((response)=>{
+            res.status(201).send(response);
+        })
+        .catch((err)=>{
+            res.sendStatus(500);
+        })
+    }else{
+        res.sendStatus(500);
+    }
+};
+
+const newComment = (req, res) => {
+    const tweet = req.body.tweet;
+    const comment = {
+        comment: req.body.comment,
+        user: req.body.user
+    };
+    Tweet.updateOne({_id :tweet}, {$addToSet: {comments : comment}})
+    .then(response=>{
+        res.status(202).send(response);
+    })
+    .catch(err=>{
+        res.status(500).send(err);
+    })
+};
+
+const deleteTweet = (req, res) => {
+    const id = req.params.id;
+    Tweet.deleteOne({_id : id})
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
 }
 
 const deleteComment = (req, res) => {
-    res.send("Borrar Comentario");
+    const tweet = req.body.tweet;    
+    const comment = req.body.comment;
+    Tweet.updateOne({_id: tweet}, {$pull: {comment: { _id: comment } } })
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
 }
 
 const totalTweetsOfUser = (req, res) => {
@@ -33,4 +109,4 @@ const usersWithMostTweets = (req, res) => {
 }
 
 
-module.exports = {deteleTweet, deleteComment, totalTweetsOfUser, listOfTweetsOfUser, listOfLastTweets, totalOfCommentsOfTweet, tweetsMostCommented, usersWithMostTweets};
+module.exports = {getTweets, getTweet, newTweet, newComment, deleteTweet, deleteComment, totalTweetsOfUser, listOfTweetsOfUser, listOfLastTweets, totalOfCommentsOfTweet, tweetsMostCommented, usersWithMostTweets};
