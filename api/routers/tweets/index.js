@@ -11,11 +11,13 @@ router.route('/comment')
     .delete(controller.deleteComment);
 
 router.route('/lasts/:count')
-    .get(controller.listOfLastTweets)
+    .get(controller.listOfLastTweets);
 
 router.route('/:id')
     .get(controller.getTweet)
     .delete(controller.deleteTweet);
 
+router.route('/:id/comments/count')
+    .get(controller.totalOfCommentsOfTweet);
 
 module.exports = router; 
