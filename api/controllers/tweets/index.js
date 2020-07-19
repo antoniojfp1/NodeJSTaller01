@@ -87,7 +87,16 @@ const deleteComment = (req, res) => {
 }
 
 const listOfLastTweets = (req, res) => {
-    res.send("Lista de últimos {n} tweets");
+    console.log(`Lista de últimos ${req.params.count} tweets`);
+    const count = Number(req.params.count);
+    Tweet.find()
+    .sort({$natural:-1}).limit(count)
+    .then((response)=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
 }
 
 const totalOfCommentsOfTweet = (req, res) => {

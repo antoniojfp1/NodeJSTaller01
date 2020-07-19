@@ -6,14 +6,16 @@ router.route('/')
     .get(controller.getTweets)
     .post(controller.newTweet);
 
+router.route('/comment')
+    .post(controller.newComment)
+    .delete(controller.deleteComment);
+
+router.route('/lasts/:count')
+    .get(controller.listOfLastTweets)
+
 router.route('/:id')
     .get(controller.getTweet)
     .delete(controller.deleteTweet);
 
-router.route('/comment')
-    .post(controller.newComment);
-
-router.route('/comment/:id')
-    .delete(controller.deleteComment);
 
 module.exports = router; 
