@@ -7,10 +7,13 @@ const app = express();
 const mongoose = require('mongoose');
 
 const useragent = require('express-useragent');
+const api = require('./api');
 
 app.use(express.json());
 
 app.use(useragent.express());
+
+app.use('/api', api);
 
 //protocol://user:password@host:port/resource
 mongoose.connect('mongodb://localhost/twitter', {
