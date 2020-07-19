@@ -17,13 +17,13 @@ const date = require('./date');
 const users = [];
 
 //Middleware
-const logger = (req, res, next) => {
-    const parameters = JSON.stringify(req.params);
-    const ua = JSON.stringify(req.useragent);
-    console.log(`${date()} : ${req.method} : ${req.path} : ${parameters} : ${ua}`);
-	next();
-}
-app.use(logger);
+// const logger = (req, res, next) => {
+//     const parameters = JSON.stringify(req.params);
+//     const ua = JSON.stringify(req.useragent);
+//     console.log(`${date()} : ${req.method} : ${req.path} : ${parameters} : ${ua}`);
+// 	next();
+// }
+// app.use(logger);
 
 app.get('/users', (req, res)=>{
     res.status(200).send(users);
