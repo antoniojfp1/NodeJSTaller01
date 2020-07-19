@@ -12,7 +12,7 @@ const getAll = (req, res) =>{
 
 const getUser = (req, res) => {
     const id = req.params.id;
-    User.find({_id : id}, ["name", "username"])
+    User.find({_id : id}, ["name", "lastname", "username"])
     .then((response)=>{
         res.status(200).send(response);
     })
@@ -50,16 +50,16 @@ const newUser = (req, res) => {
 const updateUser = (req, res) => {
     const id = req.params.id;
     User.updateOne({_id : id}, {$set: 
-        name = req.body.name,
-        lastname = req.body.lastname,
-        gender = req.body.gender,
-        age = req.body.age,
-        height = req.body.height,
-        weight = req.body.weight,
-        username = req.body.username,
-        password = req.body.password,
-        email = req.body.email,
-        telephone = req.body.telephone})
+        {name: req.body.name,
+        lastname: req.body.lastname,
+        gender: req.body.gender,
+        age: req.body.age,
+        height: req.body.height,
+        weight: req.body.weight,
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        telephone: req.body.telephone}})
     .then(response=>{
         res.status(200).send(response);
     })
