@@ -48,11 +48,35 @@ const newUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-    
+    const id = req.params.id;
+    User.updateOne({_id : id}, {$set: 
+        name = req.body.name,
+        lastname = req.body.lastname,
+        gender = req.body.gender,
+        age = req.body.age,
+        height = req.body.height,
+        weight = req.body.weight,
+        username = req.body.username,
+        password = req.body.password,
+        email = req.body.email,
+        telephone = req.body.telephone})
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    })
 }
 
 const deleteUser = (req, res) => {
-    
+    const id = req.params.id;
+    User.deleteOne({_id : id})
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    })
 }
 
 module.exports = {getAll, getUser, newUser, updateUser, deleteUser};
