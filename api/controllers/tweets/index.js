@@ -84,14 +84,6 @@ const deleteComment = (req, res) => {
     });
 }
 
-const totalTweetsOfUser = (req, res) => {
-    res.send("Número Total de tweets del usuario");
-}
-
-const listOfTweetsOfUser = (req, res) => {
-    res.send("Lista de Tweets del usuario ");
-}
-
 const listOfLastTweets = (req, res) => {
     res.send("Lista de últimos {n} tweets");
 }
@@ -109,4 +101,4 @@ const usersWithMostTweets = (req, res) => {
 }
 
 
-module.exports = {getTweets, getTweet, newTweet, newComment, deleteTweet, deleteComment, totalTweetsOfUser, listOfTweetsOfUser, listOfLastTweets, totalOfCommentsOfTweet, tweetsMostCommented, usersWithMostTweets};
+module.exports = {getTweets, getTweet, newTweet, newComment, deleteTweet, deleteComment, listOfLastTweets, totalOfCommentsOfTweet, tweetsMostCommented, usersWithMostTweets};

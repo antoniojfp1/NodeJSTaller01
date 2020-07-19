@@ -1,4 +1,6 @@
 const User = require('./../../models/users')
+const Tweet = require('./../../models/tweets');
+const { response } = require('express');
 
 const getAll = (req, res) =>{
     User.find({}, ["name", "username"])
@@ -79,4 +81,26 @@ const deleteUser = (req, res) => {
     })
 }
 
-module.exports = {getAll, getUser, newUser, updateUser, deleteUser};
+const totalTweetsOfUser = (req, res) => {
+    const user = req.body.user;
+    Tweet.find({user: {_id: user}})
+    .then(response=>{
+        res.status(200).send(`Tweetts del usuario: ${response.length}`);
+    })
+    .catch((err)=>{
+        res.sendStatus(500).send(err);
+    });
+}
+
+const listOfTweetsOfUser = (req, res) => {
+    const user = req.params.id;
+    Tweet.find({user: {_id: user}})
+    .then(response=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
+}
+
+module.exports = {getAll, getUser, newUser, updateUser, deleteUser,totalTweetsOfUser,listOfTweetsOfUser};

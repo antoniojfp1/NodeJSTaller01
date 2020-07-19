@@ -12,4 +12,10 @@ router.route('/:id')
     .put(controller.updateUser)
     .delete(controller.deleteUser);
 
+router.route('/tweets/count')
+    .get(controller.totalTweetsOfUser);
+
+router.route('/:id/tweets')
+    .get(controller.listOfTweetsOfUser);
+
 module.exports = router;
