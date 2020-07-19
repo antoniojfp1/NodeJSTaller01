@@ -75,7 +75,9 @@ const deleteTweet = (req, res) => {
 const deleteComment = (req, res) => {
     const tweet = req.body.tweet;    
     const comment = req.body.comment;
-    Tweet.updateOne({_id: tweet}, {$pull: {comment: { _id: comment } } })
+    console.log("tweet: "+ tweet);
+    console.log("comment: "+ comment);
+    Tweet.updateOne({_id: tweet}, {$pull: {comments: { _id: comment } } })
     .then(response=>{
         res.status(200).send(response);
     })
