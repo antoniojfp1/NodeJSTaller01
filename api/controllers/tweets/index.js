@@ -1,5 +1,6 @@
 const Tweet = require('./../../models/tweets');
 const { response } = require('express');
+const mostCommented = require('./../../functions/mostCommented');
 
 const getTweets = (req, res) => {
     Tweet
@@ -104,7 +105,15 @@ const totalOfCommentsOfTweet = (req, res) => {
 }
 
 const tweetsMostCommented = (req, res) => {
-    res.send("Lista de {n} tweets más comentados");
+    console.log(`Lista de ${req.params.count} tweets más comentados`);
+    const count = Number(req.params.count);
+    Tweet.find({},['_id', 'comments'])
+    .then((response)=>{
+        res.status(200).send(mostCommented(response, count));
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
 }
 
 const usersWithMostTweets = (req, res) => {

@@ -11,7 +11,11 @@ router.route('/comment')
     .delete(controller.deleteComment);
 
 router.route('/lasts/:count')
-    .get(controller.listOfLastTweets)
+    .get(controller.listOfLastTweets);
+
+router.route('/top/:count')
+    .get(controller.tweetsMostCommented);
+
 
 router.route('/:id')
     .get(controller.getTweet)
