@@ -16,10 +16,11 @@ router.route('/lasts/:count')
 router.route('/top/:count')
     .get(controller.tweetsMostCommented);
 
-
 router.route('/:id')
     .get(controller.getTweet)
     .delete(controller.deleteTweet);
 
+router.route('/:id/comments/count')
+    .get(controller.totalOfCommentsOfTweet);
 
 module.exports = router; 

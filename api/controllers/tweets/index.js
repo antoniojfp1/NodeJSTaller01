@@ -101,7 +101,15 @@ const listOfLastTweets = (req, res) => {
 }
 
 const totalOfCommentsOfTweet = (req, res) => {
-    res.send("Número total de comentarios de un tweet");
+    const id = req.params.id
+    Tweet.find({_id : id}, ["comments"])
+    .then(response=>{
+        console.log(JSON.stringify(response));
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
 }
 
 const tweetsMostCommented = (req, res) => {
