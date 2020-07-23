@@ -10,19 +10,22 @@ let mostTweets = (tweets, count) => {
     
     console.log(repetidos);
 
-    var resultado = {};
+    let resultado = {};
+    let i = 0;
 
     repetidos.forEach(function(numero){
       resultado[numero] = (resultado[numero] || 0) + 1;
+      result[i] = {
+        user: resultado[numero],
+        cantidad: (resultado[numero] || 0) + 1
+    };
+    i++;
       //value.push({user: resultado[numero], cantidad: (resultado[numero] || 0) + 1 });
     });
 
-    resultado.forEach(element => 
-      element[numero] = (element[numero] || 0) + 1
-      );
-
    console.log(resultado);
-   console.log(value);
+
+   console.log(result);
    
     /*tweets.sort((a, b) => {
         if (a.user.length > b.user.length) {

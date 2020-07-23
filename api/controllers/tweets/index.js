@@ -103,10 +103,14 @@ const listOfLastTweets = (req, res) => {
 
 const totalOfCommentsOfTweet = (req, res) => {
     const id = req.params.id
-    Tweet.find({_id : id}, ["comments"])
-    .then(response=>{
-        console.log(JSON.stringify(response));
-        res.status(200).send(response);
+    console.log("id: "+id);
+    Tweet.find({_id : id}, ["_id", "comments"])
+    .then(response => {        
+        const result = {
+            id: response[0]._id,
+            cantidad: response[0].comments.length
+        }
+        res.status(200).send(result);
     })
     .catch((err)=>{
         res.sendStatus(500);
