@@ -102,10 +102,14 @@ const listOfLastTweets = (req, res) => {
 
 const totalOfCommentsOfTweet = (req, res) => {
     const id = req.params.id
-    Tweet.find({_id : id}, ["comments"])
-    .then(response=>{
-        console.log(JSON.stringify(response));
-        res.status(200).send(response);
+    console.log("id: "+id);
+    Tweet.find({_id : id}, ["_id", "comments"])
+    .then(response => {        
+        const result = {
+            id: response[0]._id,
+            cantidad: response[0].comments.length
+        }
+        res.status(200).send(result);
     })
     .catch((err)=>{
         res.sendStatus(500);
@@ -125,7 +129,15 @@ const tweetsMostCommented = (req, res) => {
 }
 
 const usersWithMostTweets = (req, res) => {
-    res.send("Lista de {n} usuarios con mayor número de tweets");
+    const count = Number(req.params.count);
+    Tweet.find()
+    .sort({$natural:-1}).limit(count)
+    .then((response)=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    });
 }
 
 
