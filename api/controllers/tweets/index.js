@@ -76,8 +76,6 @@ const deleteTweet = (req, res) => {
 const deleteComment = (req, res) => {
     const tweet = req.body.tweet;    
     const comment = req.body.comment;
-    console.log("tweet: "+ tweet);
-    console.log("comment: "+ comment);
     Tweet.updateOne({_id: tweet}, {$pull: {comments: { _id: comment } } })
     .then(response=>{
         res.status(200).send(response);
@@ -129,14 +127,15 @@ const tweetsMostCommented = (req, res) => {
 }
 
 const usersWithMostTweets = (req, res) => {
+    console.log(`Lista de ${req.params.count} usuarios con mayor número de tweets`);
     const count = Number(req.params.count);
-    Tweet.find()
-    .sort({$natural:-1}).limit(count)
+    Tweet.aggregate([{ $group: { _id: '$user', count: { $sum: 1 } } }, { $sort : { count: -1 } }])
+    .limit(count)
     .then((response)=>{
         res.status(200).send(response);
     })
     .catch((err)=>{
-        res.sendStatus(500);
+        res.sendStatus(500).res.send(err);
     });
 }
 
