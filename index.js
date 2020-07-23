@@ -16,7 +16,7 @@ app.use(useragent.express());
 app.use('/api', api);
 
 //protocol://user:password@host:port/resource
-mongoose.connect('mongodb://localhost/twitter', {
+mongoose.connect('mongodb+srv://jcpenap:3q3j83mi2TZQsbB3@clusters.g6etq.mongodb.net/twitter?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, ()=>{
