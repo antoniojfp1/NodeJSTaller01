@@ -31,7 +31,7 @@ const getTweet = (req, res) => {
 const newTweet = (req, res) => {
     const tweet = {
         content: req.body.content,
-        user: req.body.user
+        user: req.userId
     };
     if(tweet.content && tweet.user){
         const object = new Tweet(tweet);
