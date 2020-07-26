@@ -9,16 +9,16 @@ const { response } = require('express');
 const crypto = require('./../../functions/crypto');
 const config = require('./../../../config');
 
-/*
+
 const getAll = (req, res) =>{
-    User.find({}, ["name", "username"])
+    User.find({})
     .then((response)=>{
         res.status(200).send(response);
     })
     .catch((err)=>{
         res.sendStatus(500);
     })
-};*/
+};
 
 
 const getUsers = (req, res) => {
@@ -27,7 +27,7 @@ const getUsers = (req, res) => {
 
 const getUser = (req, res) => {
     const id = req.params.id;
-    User.find({_id : id}, ["name", "username", "birthdate"])
+    User.find({_id : id})
     .then((response)=>{
         const user = {
             name: response[0].name,
@@ -147,4 +147,18 @@ const loginUser = (req, res) => {
     });
 };
 
-module.exports = {getUser, newUser, updateUser, deleteUser,totalTweetsOfUser,listOfTweetsOfUser, loginUser, getUsers};
+const newRol = (req, res) => {
+    const user = req.body.user;
+    const rol = {
+        rol: req.body.rol
+    };
+    User.updateOne({_id :user}, {$addToSet: {role_ids : rol}})
+    .then(response=>{
+        res.status(202).send(response);
+    })
+    .catch(err=>{
+        res.status(500).send(err);
+    })
+};
+
+module.exports = {getUser, newUser, updateUser, deleteUser,totalTweetsOfUser,listOfTweetsOfUser, loginUser, getAll, newRol};

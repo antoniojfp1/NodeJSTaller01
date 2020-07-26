@@ -1,21 +1,58 @@
 const Rol = require('./../../models/roles');
 
 const getRol = (req, res) => {
-    const message = 'get rol';
-    console.log(message);
-    res.status(200).res.send(message);
+    const id = req.params.id;
+    Rol.findOne({_id : id})
+    .populate('permission_ids.permission', 'name')
+    .then((response)=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    })
 }
 
 const getAllRoles = (req, res) => {
-    const message = 'get all roles';
-    console.log(message);
-    res.status(200).res.send(message);
+    Rol.find({})
+    .populate('permission_ids.permission', 'name')
+    .then((response)=>{
+        res.status(200).send(response);
+    })
+    .catch((err)=>{
+        res.sendStatus(500);
+    })
 }
 
 const newRol = (req, res) => {
-    const message = 'new rol';
-    console.log(message);
-    res.status(200).res.send(message);
+    const rol = {
+        name: req.body.name
+    };
+    if(rol.name){
+        const object = new Rol(rol);
+        object.save()
+        .then((response)=>{
+            res.status(201).send(response);
+        })
+        .catch((err)=>{
+            res.sendStatus(500);
+        })
+    }else{
+        res.sendStatus(500);
+    }
 }
 
-module.exports = {getRol, getAllRoles, newRol}
+const newPermission = (req, res) => {
+    const rol = req.body.rol;
+    const permission = {
+        permission: req.body.permission
+    };
+    Rol.updateOne({_id :rol}, {$addToSet: {permission_ids : permission}})
+    .then(response=>{
+        res.status(202).send(response);
+    })
+    .catch(err=>{
+        res.status(500).send(err);
+    })
+};
+
+module.exports = {getRol, getAllRoles, newRol, newPermission}
