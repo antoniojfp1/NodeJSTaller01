@@ -8,6 +8,7 @@ const { response } = require('express');
 
 const crypto = require('./../../functions/crypto');
 const config = require('./../../../config');
+const validatePassword = require('./../../functions/validatePassword');
 
 /*
 const getAll = (req, res) =>{
@@ -47,6 +48,10 @@ const newUser = (req, res) => {
 
     const birthdate = crypto.encrypt(req.body.birthdate);  
 
+    if (!validatePassword(req.body.password)){
+        res.sendStatus(500).send("Contraseña invalida.");
+    }
+
     const user = {
         name: req.body.name,
         lastname: req.body.lastname,
@@ -60,6 +65,7 @@ const newUser = (req, res) => {
         telephone: req.body.telephone,
         birthdate: birthdate
     };
+
     if(user.name && user.age && user.username && user.password && user.email){
         const object = new User(user);
         object.save()
