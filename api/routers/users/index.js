@@ -1,16 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./../../controllers/users');
+const logger = require('./../../middleware/logger');
 
 router.route('/')
-    .get(controller.getAll)
-    .post(controller.newUser);
-    
+    .get(controller.getUsers)
+    .post(logger, controller.newUser)
+    .delete(logger,controller.deleteUser);
+
+router.route('/login')
+    .post(logger, controller.loginUser);    
 
 router.route('/:id')
     .get(controller.getUser)
-    .put(controller.updateUser)
-    .delete(controller.deleteUser);
+    .put(logger, controller.updateUser)
+    .delete(logger, controller.deleteUser);
 
 router.route('/tweets/count')
     .get(controller.totalTweetsOfUser);
