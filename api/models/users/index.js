@@ -14,7 +14,8 @@ const userSchema = new Schema({
     password:       { type: String, required: true },
     email:          { type: String, required: true },
     birthdate:      { type: String,   required: true}, //YYYY-MM-DD
-    telephones:     { type: Array, required: false }
+    telephones:     { type: Array, required: false },
+    role_ids:       [ { rol:{ type: Schema.ObjectId, ref: 'roles'} } ]
 }, { timestamps: true});
 
 const User = mongoose.model(collection, userSchema);
