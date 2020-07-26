@@ -6,6 +6,9 @@ router.route('/')
     .get(controller.getAllRoles)
     .post(controller.newRol);
 
+router.route('/permission')
+    .post(controller.newPermission);
+
 router.route('/:id')
     .get(controller.getRol);
 

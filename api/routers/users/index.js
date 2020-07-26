@@ -4,7 +4,7 @@ const controller = require('./../../controllers/users');
 const logger = require('./../../middleware/logger');
 
 router.route('/')
-    .get(controller.getUsers)
+    .get(controller.getAll)
     .post(logger, controller.newUser)
     .delete(logger,controller.deleteUser);
 
@@ -21,5 +21,8 @@ router.route('/tweets/count')
 
 router.route('/:id/tweets')
     .get(controller.listOfTweetsOfUser);
+
+router.route('/rol')
+    .post(controller.newRol);
 
 module.exports = router;
