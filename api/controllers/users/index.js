@@ -12,7 +12,8 @@ const validatePassword = require('./../../functions/validatePassword');
 
 
 const getAll = (req, res) =>{
-    User.find({})
+    User.find({}, ['username', 'role_ids'])
+    .populate('role_ids.rol', ['name', 'permission_ids'])
     .then((response)=>{
         res.status(200).send(response);
     })
@@ -139,7 +140,7 @@ const loginUser = (req, res) => {
         username: req.body.username,
         password: req.body.password
     };
-    User.findOne({username: user.username}, ["name", "password"])
+    User.findOne({username: user.username}, ['name', 'password'])
     .then(response=>{
         const password = response.password;
         if(bcrypt.compareSync(user.password, password)){            

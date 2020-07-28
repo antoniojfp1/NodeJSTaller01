@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const controller = require('./../../controllers/users');
 const logger = require('./../../middleware/logger');
+const listUser = require('./../../middleware/listUser');
 
 router.route('/')
-    .get(controller.getAll)
+    .get(listUser, controller.getAll)
     .post(logger, controller.newUser)
     .delete(logger,controller.deleteUser);
 
