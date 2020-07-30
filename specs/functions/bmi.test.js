@@ -1,4 +1,4 @@
-const bmi = require('./../api/functions/bmi');
+const bmi = require('./../../api/functions/bmi');
 
 describe('BMI', ()=>{    
     it('bmi when success', () => {
