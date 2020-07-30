@@ -1,4 +1,4 @@
-const cryptojs = require("crypto");
+const cryptojs = require("crypto-js");
 const config = require('./../../config');
 
 const encrypt = (data) => {
