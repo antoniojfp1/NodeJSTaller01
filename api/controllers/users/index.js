@@ -47,7 +47,7 @@ const newUser = (req, res) => {
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
 
-    if (false){        
+    if (!validatePassword(req.body.password)){
         res.status(500).send("Contraseña inválida.");
     
     } else {
