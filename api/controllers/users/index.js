@@ -9,6 +9,7 @@ const { response } = require('express');
 const crypto = require('./../../functions/crypto');
 const config = require('./../../../config');
 const validatePassword = require('./../../functions/validatePassword');
+const validateUsernameAndEmail = require('./../../functions/validateUsernameAndEmail');
 
 
 const getAll = (req, res) =>{
@@ -45,40 +46,55 @@ const getUser = (req, res) => {
 const newUser = (req, res) => {
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
-    const password = bcrypt.hashSync(req.body.password, salt);
 
-    const birthdate = crypto.encrypt(req.body.birthdate);  
+    if (!validatePassword(req.body.password)){        
+        res.status(500).send("Contraseña inválida.");
+    
+    } else {
+    
+        const password = bcrypt.hashSync(req.body.password, salt);
+        const birthdate = crypto.encrypt(req.body.birthdate);  
 
-    if (!validatePassword(req.body.password)){
-        res.sendStatus(500).send("Contraseña invalida.");
-    }
+        const user = {
+            name: req.body.name,
+            lastname: req.body.lastname,
+            gender: req.body.gender,
+            height: req.body.height,
+            weight: req.body.weight,
+            age: req.body.age,
+            username: req.body.username,
+            password: password,
+            email: req.body.email,
+            telephone: req.body.telephone,
+            birthdate: birthdate
+        };
 
-    const user = {
-        name: req.body.name,
-        lastname: req.body.lastname,
-        gender: req.body.gender,
-        height: req.body.height,
-        weight: req.body.weight,
-        age: req.body.age,
-        username: req.body.username,
-        password: password,
-        email: req.body.email,
-        telephone: req.body.telephone,
-        birthdate: birthdate
-    };
+        if(user.name && user.age && user.username && user.password && user.email){
 
-    if(user.name && user.age && user.username && user.password && user.email){
-        const object = new User(user);
-        object.save()
-        .then((response)=>{
-            res.status(201).send(response._id);
-        })
-        .catch((err)=>{
+            const alreadyExist = async () => {
+                return await validateUsernameAndEmail(user.username, user.email);
+            }
+            alreadyExist().then((response) => {
+                if (response) {
+                    res.status(409).send("Username or email already exist");
+                } else {
+                    const object = new User(user);
+                    object.save()
+                    .then((response)=>{
+                        res.status(201).send(response._id);
+                    })
+                    .catch((err)=>{
+                        res.sendStatus(500);
+                    });
+                }
+            });
+            
+        }else{
             res.sendStatus(500);
-        })
-    }else{
-        res.sendStatus(500);
+        }
     }
+
+    
 };
 
 const updateUser = (req, res) => {
