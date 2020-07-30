@@ -7,6 +7,7 @@ describe('BMI', ()=>{
         const result = 24.691358024691358;
         expect(bmi(weight, height)).toBe(result);
     });
+    
     it('bmi when error', () => {
         const height=0;
         const weight=80;
