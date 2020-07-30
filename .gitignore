@@ -1,3 +1,5 @@
 node_modules/
 .env 
 logs
+package.json
+package-lock.json
