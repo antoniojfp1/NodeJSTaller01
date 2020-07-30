@@ -64,13 +64,22 @@ const newComment = (req, res) => {
 
 const deleteTweet = (req, res) => {
     const id = req.params.id;
-    Tweet.deleteOne({_id : id})
-    .then(response=>{
-        res.status(200).send(response);
+    Tweet.exists({
+        _id: id,
+        user: req.userId,
+    }).then(existTweet=> {
+        if (existTweet) {
+            Tweet.deleteOne({_id : id,})
+            .then(response=>{
+                res.status(200).send(response);
+            })
+            .catch((err)=>{
+                res.sendStatus(500);
+            });
+        } else {
+            res.status(400).send("No puedes borrar un tweet que no sea tuyo o que no exista.");
+        }
     })
-    .catch((err)=>{
-        res.sendStatus(500);
-    });
 }
 
 const deleteComment = (req, res) => {
