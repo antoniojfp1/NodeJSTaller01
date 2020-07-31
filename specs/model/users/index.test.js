@@ -1,5 +1,5 @@
 
-const User = require('../../../../api/models/users');
+const User = require('./../../../api/models/users');
 const mongoose = require('mongoose');
 
 const userData = {
@@ -31,30 +31,30 @@ describe('Tests for User model', () => {
         await mongoose.disconnect(done);
     });
 
-    it('Create & Save User Successfully', async() => {
-        const validUser = new User(userData);
-        const savedUser = await validUser.save();
-        expect(savedUser._id).toBeDefined();
-        expect(savedUser.name).toBe(userData.name);
-        expect(savedUser.username).toBe(userData.username);
-        expect(savedUser.password).toBe(userData.password);
-        expect(savedUser.age).toBe(userData.age);
-        expect(savedUser.birthdate).toBe(userData.birthdate);
+    it('Create, Save & Retrieve Multiple User Successfully', async() => {
+        for (let index = 0; index < 5; index++) {
+            const validUser = new User(userData);
+            await validUser.save();
+        }
+        const allUsers = await User.find({}).exec()
+        expect(allUsers).toHaveLength(5);
+
     });
 
     it('Create & Save User Not Sucess Because Required Fields Not Sent', async() => {
-        const invalidUser = new User({ username: "antoniojfp1" });
+        const invalidUser = new User({ username: "Efren" });
         expect(invalidUser.save()).rejects.toThrow(mongoose.ValidationError);
     });
 
-    it('Retrieve User Successfully, Invalid Projected Fields Are Undefined', async() => {
-        const validUser = new User(userData);
-        await validUser.save();
-        const retrievedUser = await User.findOne({ username: userData.username }, ["name", "gender", "active"]).exec();
-        expect(retrievedUser._id).toBeDefined();
-        expect(retrievedUser.name).toBe(userData.name);
-        expect(retrievedUser.gender).toBeUndefined();
-        expect(retrievedUser.active).toBeUndefined();
+    it('Create, Save & Update User Succesfully', async() => {
+        const savedUser = await new User(userData).save();
+        await User.updateOne({ _id: savedUser._id }, {
+            $set: {
+                age: 24
+            }
+        }).exec()
+        const retrievedUser = await User.findOne({ username: userData.username }, ["age"]).exec();
+        expect(retrievedUser.age).toBe(24);
     });
 
 });
