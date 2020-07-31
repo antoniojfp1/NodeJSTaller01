@@ -18,7 +18,8 @@
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.1",
-    "jest": "^26.2.1"
+    "jest": "^26.2.1",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "start": "node index.js",
