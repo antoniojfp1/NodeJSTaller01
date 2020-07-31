@@ -1,49 +1,21 @@
-# APIRest
-## Diseño de aplicaciones Web
+# Diseño de aplicaciones Web
 
-1. Download the repository
-```
-git clone https://github.com/jestrade/diseno-aplicaciones-web.git
-```
+## Grupo de trabajo
+Barceló Yaliza
+Fernandez Antonio
+Peña Juan Carlos
+Quevedo Pamela
 
-2. Enter into the directory
-```
-cd diseno-aplicaciones-web
-```
-3. Install the app
-```
-npm install
-ENV = development | production
-```
-4. Create .env file
-```
-ENV=
-DEV_DATABASE_HOST=
-DEV_DATABASE_NAME=
-PROD_DATABASE_HOST=
-PROD_DATABASE_NAME=
-PROD_DATABASE_USER=
-PROD_DATABASE_PASSWORD=
-SERVER_PORT=
-SERVER_HOST=
-SECRET_KEY=
-TOKEN_KEY=
-```
+## Repositorio
+https://github.com/antoniojfp1/NodeJSTaller01
 
-5. To run the app on production mode
-```
-npm start
-```
+## Base de datos Mongo
+Cluster: clusters.g6etq.mongodb.net
+Database: twitter
+User: jcpenap
+Password: 3q3j83mi2TZQsbB3
 
-6. To run the app on development mode
-6.1 Install nodemon
-```
-npm i nodemon -g
-```
-6.2 Run
-```
-npm run dev
-```
+## Librerías usadas
 
 - https://www.npmjs.com/package/express
 - https://www.npmjs.com/package/mongoose
@@ -54,3 +26,70 @@ npm run dev
 - https://www.npmjs.com/package/crypto-js
 - https://www.npmjs.com/package/bcrypt
 - https://www.npmjs.com/package/jsonwebtoken
+
+## Modelo
+
+1. Users
+2. tweets
+3. roles
+4. permissions
+
+## Controladores
+1. Users
+    a. Requerimientos: bcrypt, jsonwebtoken, crypto y express
+    b. API
+        * getAll: obtiene todos los usuarios
+        * getUser: Obtiene un usuario por el id
+        * newUser: Crea un nuevo usuario
+        * updateUser: Actualiza un usuario especifico
+        * deleteUser: Elimina un usuario especifico
+        * totalTweetsOfUser: Devuelve el numero de tweets de un usuario especifico
+        * listOfTweetsOfUser: Devuelve la lista de tweets de un usuario especifico
+        * loginUser: Autentica a un usuario
+        * newRol: Asigna un rol a un usuario especifico
+
+2. tweets
+    a. Requerimientos: Express
+    b. API
+        * getTweets: Obtiene todos los tweets
+        * getTweet: Devuelve un tweet especifico
+        * newTweet: Crea un nuevo tweet
+        * newComment: Crear un comentario a un tweet
+        * deleteTweet: Elimina un tweet especifico
+        * deleteComment: Elimina un comentario de un tweet
+        * listOfLastTweets: DEvuelve la lista de los ultimos "N" tweets
+        * totalOfCommentsOfTweet: Trae la cantidad de comentarios de un tweet
+        * tweetsMostCommented: Devuelve los tweets con más comentarios
+        * userWithMostTweets: devuelve la lista de usuarios que mas interactuan
+
+3. roles
+    a. Requerimientos:
+    b. API
+        * getRol: Devuelve un rol especifico
+        * getAllRoles: Devuelve todos los roles
+        * newRol: Crea un nuevo rol
+        * newPermission: Agregar un permiso a un rol
+
+4. permissions
+    a. Requerimientos
+    b. API
+        * getPermission: Devuelve un permiso especifico
+        * getAllPermission: Devuelve el listado de todos los permisos
+        * newPermission: Crea un nuevo permiso
+
+## funciones
+
+1. bmi: Devuelve el indice de masa coporal según altura y peso
+2. crypto: Ayuda a encriptar y desencriptar un dato
+3. date: Obtiene la fecha actual
+4. mostCommented: Devuelve la cantidad de comentarios de un tweet
+5. validatePassword: Ayuda a determinar restricciones para la contraseña de los usuarios
+6. validateUsernameAndEmail: Valida que no exiista un usuario previamente creado con el email
+
+
+## Middleware
+
+1. authentication: Gestiona la autenticación de los usuarios
+2. listUser: Da una lista de los usuarios logueados
+3. logger
+
