@@ -48,3 +48,5 @@ mongoose.connect(`mongodb+srv://${config.database.production.user}:${config.data
 const server = app.listen(config.server.port, config.server.host, () => {
   console.log(`Servidor iniciado en el puerto ${server.address().port} en modo ${config.env}`);
 });
+
+module.exports = app;
