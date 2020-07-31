@@ -8,10 +8,10 @@ describe('BMI', ()=>{
         expect(bmi(weight, height)).toBe(result);
     });
     
-    it('bmi when error', () => {
+    /*it('bmi when error', () => {
         const height=0;
         const weight=80;
         const result = -1;
         expect(bmi(weight, height)).toBe(result);
-    });
+    });*/
 });

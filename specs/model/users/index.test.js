@@ -2,8 +2,9 @@
 const User = require('./../../../api/models/users');
 const mongoose = require('mongoose');
 
-const userData = {
+const user = {
     name: 'Antonio',
+    lastname: 'Fernandez',
     username: 'jfantonio',
     email: 'jfantonio@uninorte.edu.co',
     age: 32,
@@ -33,7 +34,7 @@ describe('Tests for User model', () => {
 
     it('Create, Save & Retrieve Multiple User Successfully', async() => {
         for (let index = 0; index < 5; index++) {
-            const validUser = new User(userData);
+            const validUser = new User(user);
             await validUser.save();
         }
         const allUsers = await User.find({}).exec()
@@ -47,13 +48,13 @@ describe('Tests for User model', () => {
     });
 
     it('Create, Save & Update User Succesfully', async() => {
-        const savedUser = await new User(userData).save();
+        const savedUser = await new User(user).save();
         await User.updateOne({ _id: savedUser._id }, {
             $set: {
                 age: 24
             }
         }).exec()
-        const retrievedUser = await User.findOne({ username: userData.username }, ["age"]).exec();
+        const retrievedUser = await User.findOne({ username: user.username }, ["age"]).exec();
         expect(retrievedUser.age).toBe(24);
     });
 
