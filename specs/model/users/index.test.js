@@ -43,7 +43,7 @@ describe('Tests for User model', () => {
     });
 
     it('Create & Save User Not Sucess Because Required Fields Not Sent', async() => {
-        const invalidUser = new User({ username: "Efren" });
+        const invalidUser = new User({ username: "antoniojfp1" });
         expect(invalidUser.save()).rejects.toThrow(mongoose.ValidationError);
     });
 
@@ -51,11 +51,11 @@ describe('Tests for User model', () => {
         const savedUser = await new User(user).save();
         await User.updateOne({ _id: savedUser._id }, {
             $set: {
-                age: 24
+                age: 33
             }
         }).exec()
         const retrievedUser = await User.findOne({ username: user.username }, ["age"]).exec();
-        expect(retrievedUser.age).toBe(24);
+        expect(retrievedUser.age).toBe(33);
     });
 
 });
