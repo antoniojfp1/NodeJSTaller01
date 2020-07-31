@@ -1,19 +1,19 @@
 # Diseño de aplicaciones Web
 
 ## Grupo de trabajo
-Barceló Yaliza
-Fernandez Antonio
-Peña Juan Carlos
-Quevedo Pamela
+- Barceló Yaliza
+- Fernandez Antonio
+- Peña Juan Carlos
+- Quevedo Pamela
 
 ## Repositorio
 https://github.com/antoniojfp1/NodeJSTaller01
 
 ## Base de datos Mongo
-Cluster: clusters.g6etq.mongodb.net
-Database: twitter
-User: jcpenap
-Password: 3q3j83mi2TZQsbB3
+- Cluster: clusters.g6etq.mongodb.net
+- Database: twitter
+- User: jcpenap
+- Password: 3q3j83mi2TZQsbB3
 
 ## Librerías usadas
 
@@ -36,47 +36,47 @@ Password: 3q3j83mi2TZQsbB3
 
 ## Controladores
 1. Users
-    a. Requerimientos: bcrypt, jsonwebtoken, crypto y express
-    b. API
-        * getAll: obtiene todos los usuarios
-        * getUser: Obtiene un usuario por el id
-        * newUser: Crea un nuevo usuario
-        * updateUser: Actualiza un usuario especifico
-        * deleteUser: Elimina un usuario especifico
-        * totalTweetsOfUser: Devuelve el numero de tweets de un usuario especifico
-        * listOfTweetsOfUser: Devuelve la lista de tweets de un usuario especifico
-        * loginUser: Autentica a un usuario
-        * newRol: Asigna un rol a un usuario especifico
+    - Requerimientos: bcrypt, jsonwebtoken, crypto y express
+    - API
+        - getAll: obtiene todos los usuarios
+        - getUser: Obtiene un usuario por el id
+        - newUser: Crea un nuevo usuario
+        - updateUser: Actualiza un usuario especifico
+        - deleteUser: Elimina un usuario especifico
+        - totalTweetsOfUser: Devuelve el numero de tweets de un usuario especifico
+        - listOfTweetsOfUser: Devuelve la lista de tweets de un usuario especifico
+        - loginUser: Autentica a un usuario
+        - newRol: Asigna un rol a un usuario especifico
 
 2. tweets
-    a. Requerimientos: Express
-    b. API
-        * getTweets: Obtiene todos los tweets
-        * getTweet: Devuelve un tweet especifico
-        * newTweet: Crea un nuevo tweet
-        * newComment: Crear un comentario a un tweet
-        * deleteTweet: Elimina un tweet especifico
-        * deleteComment: Elimina un comentario de un tweet
-        * listOfLastTweets: DEvuelve la lista de los ultimos "N" tweets
-        * totalOfCommentsOfTweet: Trae la cantidad de comentarios de un tweet
-        * tweetsMostCommented: Devuelve los tweets con más comentarios
-        * userWithMostTweets: devuelve la lista de usuarios que mas interactuan
+    - Requerimientos: Express
+    - API
+        - getTweets: Obtiene todos los tweets
+        - getTweet: Devuelve un tweet especifico
+        - newTweet: Crea un nuevo tweet
+        - newComment: Crear un comentario a un tweet
+        - deleteTweet: Elimina un tweet especifico
+        - deleteComment: Elimina un comentario de un tweet
+        - listOfLastTweets: DEvuelve la lista de los ultimos "N" tweets
+        - totalOfCommentsOfTweet: Trae la cantidad de comentarios de un tweet
+        - tweetsMostCommented: Devuelve los tweets con más comentarios
+        - userWithMostTweets: devuelve la lista de usuarios que mas interactuan
 
 3. roles
-    a. Requerimientos:
-    b. API
-        * getRol: Devuelve un rol especifico
-        * getAllRoles: Devuelve todos los roles
-        * newRol: Crea un nuevo rol
-        * newPermission: Agregar un permiso a un rol
+    - Requerimientos:
+    - API
+        - getRol: Devuelve un rol especifico
+        - getAllRoles: Devuelve todos los roles
+        - newRol: Crea un nuevo rol
+        - newPermission: Agregar un permiso a un rol
 
 4. permissions
-    a. Requerimientos
-    b. API
-        * getPermission: Devuelve un permiso especifico
-        * getAllPermission: Devuelve el listado de todos los permisos
-        * newPermission: Crea un nuevo permiso
-
+    - Requerimientos
+    - API
+        - getPermission: Devuelve un permiso especifico
+        - getAllPermission: Devuelve el listado de todos los permisos
+        - newPermission: Crea un nuevo permiso
+        
 ## funciones
 
 1. bmi: Devuelve el indice de masa coporal según altura y peso
